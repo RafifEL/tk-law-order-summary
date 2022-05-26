@@ -1,10 +1,18 @@
-import express, { json } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
-import OrderRouter from './routes';
+import OrderSummaryRouter from './routes';
+import path from 'path';
+import fs from 'fs';
 
 async function main() {
+  if (!fs.existsSync(path.resolve('uploads/'))) {
+    fs.mkdirSync(path.resolve('file/'), {
+      recursive: true,
+    });
+  }
+
   await mongoose.connect('mongodb://localhost:27017', {
-    dbName: 'order_law',
+    dbName: 'order_summary_law',
     autoIndex: true,
     autoCreate: true,
   });
@@ -17,10 +25,10 @@ async function main() {
     })
   );
 
-  app.use(OrderRouter);
+  app.use(OrderSummaryRouter);
 
-  app.listen(3030, () => {
-    console.log('App start at port 3030');
+  app.listen(3040, () => {
+    console.log('App start at port 3040');
   });
 }
 
