@@ -25,6 +25,10 @@ async function main() {
     })
   );
 
+  app.use(
+    '/orderSummary/file',
+    express.static(path.join(__dirname, '../file'))
+  );
   app.use(OrderSummaryRouter);
 
   app.listen(3040, () => {
